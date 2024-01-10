@@ -1,6 +1,6 @@
+
 import React from "react";
-import all_product from "../../Assets/all_product";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
   CardActionArea,
@@ -15,9 +15,9 @@ const ProductSection = () => {
 
   // const dispatch = useDispatch();
 
-  // const data = useSelector((state) =>{
-  //   console.log(state);
-  // } )
+
+
+  const usersdata = useSelector(state => state.products)
 
   return (
     <>
@@ -26,7 +26,11 @@ const ProductSection = () => {
           SHOPPING PRODUCTS
         </Typography>
         <Grid container spacing={5} style={{ marginTop: "20px" }}>
-          {all_product.map((result, index) => (
+        {
+          usersdata.map((product, i) => <div>{ Object.keys(product)}</div>)
+
+        }
+          {/* {all_product.map((result, index) => (
             <Grid item xs={12} md={4} key={index}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
@@ -37,9 +41,6 @@ const ProductSection = () => {
                     alt="green iguana"
                   />
                   <CardContent>
-                    {/* <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography> */}
                     <Typography variant="body2" color="text.secondary">
                       Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse"
                     </Typography>
@@ -47,7 +48,7 @@ const ProductSection = () => {
                 </CardActionArea>
               </Card>
             </Grid>
-          ))}
+          ))} */}
         </Grid>
       </Container>
     </>

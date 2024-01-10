@@ -17,7 +17,6 @@ import DrawerComponent from "./DrawerComponent";
 import ProductSection from "../ProductSection/ProductSection";
 import LoginSignup from "../LoginSingUp/LoginSingup";
 import {  } from '@mui/material';
-import all_product from "../../Assets/all_product";
 const PAGES = ["SHOP", "MENS", "WOMENS", "KIDS"];
 const IMAGE = [
   {
@@ -27,7 +26,7 @@ const IMAGE = [
 ];
 
 const Navbar = () => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
   const [showLogin, setShowLogin] = useState(false);
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -41,7 +40,6 @@ const Navbar = () => {
   };
   const handleShopClick = () => {
     
-    console.log(all_product);
   }
 
   return (
@@ -77,7 +75,8 @@ const Navbar = () => {
                     indicatorColor="secondary"
                   >
                     {PAGES.map((page, index) => (
-                      <Tab key={index} label={page}
+                      <Tab key={index} 
+                      label={page}
                       onClick={page === "SHOP" ? handleShopClick : null}
                       />
                     ))}
@@ -121,19 +120,6 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
       <ProductSection />
-      {/* {showLogin && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            zIndex: 999,
-            backdropFilter: "blur(5px)",
-          }}
-        />
-      )} */}
     </React.Fragment>
   );
 };

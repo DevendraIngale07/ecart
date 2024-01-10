@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import all_product from "../Assets/all_product";
+import all_product from "./all_product";
 
 const ProductSlice = createSlice({
-  name: "user",
+  name: "products",
   initialState: [...all_product],
   reducers: {
-    showUser(state, action) {
-      console.log(state);
-    },
+    // showUser(state, action) {
+    //   console.log(state);
+    // },
     
   },
 });
