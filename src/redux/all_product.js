@@ -36,11 +36,13 @@ import p35_img from "../Assets/productImg/product_35.png";
 import p36_img from "../Assets/productImg/product_36.png";
 
 
-const all_product = [
+const all_products = [
   {
-    fashion: [
+    category: "Fashions",
+    subCategories: [
       {
-        men_fashion: [
+        type: "Mens",
+        products: [
           {
             id: 1,
             name: "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
@@ -137,10 +139,11 @@ const all_product = [
             new_price: 85.0,
             old_price: 120.5,
           },
-        ],
+        ]
       },
       {
-        women_fashion: [
+        type: "womens",
+        products: [
           {
             id: 1,
             name: "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
@@ -237,11 +240,11 @@ const all_product = [
             new_price: 85.0,
             old_price: 120.5,
           },
-        ],
+        ]
       },
       {
-        kids_fashion: [
-          {
+        type: "kids",
+        products: [{
             id: 1,
             name: "Boys Orange Colourblocked Hooded Sweatshirt",
             category: "kids",
@@ -336,12 +339,20 @@ const all_product = [
             image: p36_img,
             new_price: 85.0,
             old_price: 120.5,
-          },
-        ],
-      },
-    ],
+          },]
+      }
+    ]
   },
-  { electronics: [] },
-];
+  {
+    category: "Electronics",
+    subCategories: []
+  },
+  {
+    category: "Appliances",
+    subCategory: []
+  }
+]
 
-export default all_product;
+export default all_products;
+
+        

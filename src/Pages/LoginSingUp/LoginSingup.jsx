@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
-import { Container, Typography, TextField, Button, Grid, Link } from '@mui/material';
-import { Person as PersonIcon, Email as EmailIcon, Lock as LockIcon } from '@mui/icons-material';
+import React, { useState } from "react";
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  Link,
+} from "@mui/material";
+import {
+  Person as PersonIcon,
+  Email as EmailIcon,
+  Lock as LockIcon,
+} from "@mui/icons-material";
 
 const LoginSignup = () => {
-  const [action, setAction] = useState('Sign Up');
+  const [action, setAction] = useState("Sign Up");
 
   return (
-    <Container className='container'>
+    <Container className="container">
       <Typography variant="h4" className="header">
         {action}
       </Typography>
       <div className="underline"></div>
       <Grid container spacing={2} className="inputs">
-        {action === 'Login' ? null : (
+        {action === "Login" ? null : (
           <Grid item xs={12} className="input">
             <PersonIcon />
             <TextField label="Name" fullWidth />
@@ -27,28 +38,28 @@ const LoginSignup = () => {
           <TextField type="password" label="Password" fullWidth />
         </Grid>
       </Grid>
-      {action === 'Sign Up' ? null : (
+      {action === "Sign Up" ? null : (
         <Typography variant="body2" className="forgot-password">
           Lost Password? <Link href="#">Click Here!</Link>
         </Typography>
       )}
       <div className="submit-container">
         <Button
-          variant={action === 'Login' ? 'contained' : 'outlined'}
-          className={action === 'Login' ? 'submit gray' : 'submit'}
-          sx={{top: "10px", gap:"5px"}}
+          variant={action === "Login" ? "contained" : "outlined"}
+          className={action === "Login" ? "submit gray" : "submit"}
+          sx={{ top: "10px", gap: "5px" }}
           onClick={() => {
-            setAction('Sign Up');
+            setAction("Sign Up");
           }}
         >
           LOG IN
         </Button>
         <Button
-          variant={action === 'Sign Up' ? 'contained' : 'outlined'}
-          className={action === 'Sign Up' ? 'submit gray' : 'submit'}
-          sx={{top: "10px", marginLeft:"20px"}}
+          variant={action === "Sign Up" ? "contained" : "outlined"}
+          className={action === "Sign Up" ? "submit gray" : "submit"}
+          sx={{ top: "10px", marginLeft: "20px" }}
           onClick={() => {
-            setAction('Login');
+            setAction("Login");
           }}
         >
           SIGN UP
@@ -59,7 +70,3 @@ const LoginSignup = () => {
 };
 
 export default LoginSignup;
-
-
-
-

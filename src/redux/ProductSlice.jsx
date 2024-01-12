@@ -15,7 +15,7 @@ const ProductSlice = createSlice({
 
 
 
-export const { showUser} = ProductSlice.actions;
+// export const { showUser} = ProductSlice.actions;
 export default ProductSlice.reducer;
 
 
