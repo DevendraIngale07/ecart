@@ -12,14 +12,13 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
-import { TiThMenu } from "react-icons/ti";
+import { CiMenuKebab } from "react-icons/ci";
 import logo from "../../Assets/logo.png";
 import cart_icon from "../../Assets/cart_icon.png";
-import HeroSection from "../HomePage/HeroSection";
 import { Dialog, DialogContent } from "@mui/material";
 
 import LoginSignup from "../LoginSingUp/LoginSingup";
-import ProductSection from "../ProductSectionPage/ProductSection";
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,8 +27,6 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
   const [loginSignupOpen, setLoginSignupOpen] = useState(false);
-  
-  
 
   const LoginSignupPopup = () => (
     <Dialog open={loginSignupOpen} onClose={() => setLoginSignupOpen(false)}>
@@ -68,11 +65,13 @@ const Navbar = () => {
               className="nav-logo"
               style={{ display: "flex", alignItems: "center", gap: "10px" }}
             >
-              <img
-                src={logo}
-                alt=""
-                style={{ width: "30px", height: "30px" }}
-              />
+              <Link to="/">
+                <img
+                  src={logo}
+                  alt=""
+                  style={{ width: "30px", height: "30px" }}
+                />
+              </Link>
               <p style={{ margin: 0, fontSize: "18px", fontWeight: "bold" }}>
                 Flipkart
               </p>
@@ -113,34 +112,51 @@ const Navbar = () => {
             </div>
             <div
               className="nav-login-cart"
-              style={{ display: "flex", alignItems: "center", gap: "15px" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
+                padding: "8px",
+                backgroundColor: "#A7EEE0",
+                marginRight: "10px",
+                borderRadius: "50px",
+              }}
             >
               <Link to="/">
                 <Button
                   color="inherit"
                   onClick={() => setLoginSignupOpen(true)}
                 >
-                  Log In
+                  Profile
                 </Button>
               </Link>
-              <LoginSignupPopup />
-              <Link to="/cart">
-                <img src={cart_icon} alt="" />
-              </Link>
+            </div>
+            <LoginSignupPopup />
+            <div 
+            className="cart"
+            style={{
+              backgroundColor: "#4A70BC",
+              padding: "8px",
+              marginLeft: "10px",
+              borderRadius: "50px",
+            }}
+            >
+            <Link to="/cart">
+              <img src={cart_icon} alt="" />
+            </Link>
             </div>
             <IconButton
               edge="end"
               color="inherit"
               onClick={handleDrawerToggle}
-              sx={{ ml: 2, color: "#5887E8" }}
+              sx={{ ml: 2, color: "#EAFB00" }}
             >
-              <TiThMenu />
+              <CiMenuKebab />
             </IconButton>
           </Toolbar>
         </AppBar>
+  
       </div>
-      <ProductSection />
-      <HeroSection />
     </>
   );
 };

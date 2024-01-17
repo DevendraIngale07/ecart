@@ -34,6 +34,12 @@ import p33_img from "../Assets/productImg/product_33.png";
 import p34_img from "../Assets/productImg/product_34.png";
 import p35_img from "../Assets/productImg/product_35.png";
 import p36_img from "../Assets/productImg/product_36.png";
+import MI from ".././Assets/electronic Img/MI.jpg"
+import Iphone from ".././Assets/electronic Img/iphone.jpg"
+import Samsung from ".././Assets/electronic Img/Samsung.jpg"
+import Vivo from ".././Assets/electronic Img/Vivo01.webp"
+import oppo from ".././Assets/electronic Img/Oppo.jpg"
+import google_pixel from ".././Assets/electronic Img/google pixel.jpg"
 
 
 const all_products = [
@@ -345,7 +351,62 @@ const all_products = [
   },
   {
     category: "Electronics",
-    subCategories: []
+    subCategories: [
+      {
+        type: "Mobile",
+        products: [
+          {
+            id: 1,
+            name: "Iphone",
+            category: "mobile",
+            image: Iphone,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 2,
+            name: "Samsung",
+            category: "mobile",
+            image: Samsung,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 3,
+            name: "Vivo",
+            category: "mobile",
+            image: Vivo,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 4,
+            name: "Oppo",
+            category: "mobile",
+            image: oppo,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 5,
+            name: "Redmi",
+            category: "mobile",
+            image: MI,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 6,
+            name: "Googel Pixel",
+            category: "mobile",
+            image: google_pixel,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	      ]
+        
+      }
+    ]
   },
   {
     category: "Appliances",
