@@ -42,7 +42,7 @@ import oppo from ".././Assets/electronic Img/Oppo.jpg"
 import google_pixel from ".././Assets/electronic Img/google pixel.jpg"
 
 
-const all_products = [
+const all_product = [
   {
     category: "Fashions",
     subCategories: [
@@ -51,7 +51,7 @@ const all_products = [
         products: [
           {
             id: 1,
-            name: "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+            name: "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse Jacket",
             category: "men",
             image: p13_img,
             new_price: 85.0,
@@ -410,10 +410,66 @@ const all_products = [
   },
   {
     category: "Appliances",
-    subCategory: []
+    subCategory: [
+      {
+        type: "nofsn",
+        products: [
+          {
+            id: 1,
+            name: "Iphone",
+            category: "mobile",
+            image: Iphone,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 2,
+            name: "Samsung",
+            category: "mobile",
+            image: Samsung,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 3,
+            name: "Vivo",
+            category: "mobile",
+            image: Vivo,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 4,
+            name: "Oppo",
+            category: "mobile",
+            image: oppo,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 5,
+            name: "Redmi",
+            category: "mobile",
+            image: MI,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	        {
+            id: 6,
+            name: "Googel Pixel",
+            category: "mobile",
+            image: google_pixel,
+            new_price: 85.0,
+            old_price: 120.5,
+          },
+	      ]
+        
+      }
+
+    ]
   }
 ]
 
-export default all_products;
+export default all_product;
 
         
