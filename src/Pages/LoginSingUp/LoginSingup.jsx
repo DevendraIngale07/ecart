@@ -12,8 +12,11 @@ import {
   Email as EmailIcon,
   Lock as LockIcon,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import HomePage from "../HomePage/HomePage"; 
 
 const LoginSignup = () => {
+  const navigate = useNavigate();
   const [action, setAction] = useState("Sign Up");
 
   return (
@@ -44,26 +47,28 @@ const LoginSignup = () => {
         </Typography>
       )}
       <div className="submit-container">
-        <Button
-          variant={action === "Login" ? "contained" : "outlined"}
-          className={action === "Login" ? "submit gray" : "submit"}
-          sx={{ top: "10px", gap: "5px" }}
-          onClick={() => {
-            setAction("Sign Up");
-          }}
-        >
-          LOG IN
-        </Button>
-        <Button
-          variant={action === "Sign Up" ? "contained" : "outlined"}
-          className={action === "Sign Up" ? "submit gray" : "submit"}
-          sx={{ top: "10px", marginLeft: "20px" }}
-          onClick={() => {
-            setAction("Login");
-          }}
-        >
-          SIGN UP
-        </Button>
+        
+      <Button
+        variant={action === "Login" ? "contained" : "outlined"}
+        className={action === "Login" ? "submit gray" : "submit"}
+        sx={{ top: "10px", gap: "5px" }}
+        onClick={() => {
+          setAction("Sign Up");
+        }}
+      >
+        LOG IN
+      </Button>
+      <Button
+        variant={action === "Sign Up" ? "contained" : "outlined"}
+        className={action === "Sign Up" ? "submit gray" : "submit"}
+        sx={{ top: "10px", marginLeft: "20px" }}
+        onClick={() => {
+          setAction("Login");
+          navigate("/"); // Navigate to the home page when "Sign Up" button is clicked
+        }}
+      >
+        SIGN UP
+      </Button>
       </div>
     </Container>
   );

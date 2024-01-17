@@ -1,5 +1,5 @@
 import React from "react";
-import {  useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Container, Grid, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import ProductSection from "./ProductSection";
@@ -23,12 +23,12 @@ const ProductPage = () => {
     .filter((subCat) => subCat.type === subCategoriesType)
     .map((subCat) => subCat.products)
     .flat();
-    console.log(abc);
 
   const handleProductClick = (productId) => {
-    
-    navigate(`/single-product/${productId}`);
+    navigate(`/single-product/${subCategoriesType}/${productId}`);
   };
+
+  console.log("subCategoriesType:", subCategoriesType);
 
   return (
     <Container
@@ -44,21 +44,25 @@ const ProductPage = () => {
         Products for {subCategoriesType}
       </Typography>
       <Grid container spacing={2}>
-        {abc.map((product) => (
-          <Grid item xs={12} sm={6} md={3} lg={4} key={product.id}>
-            <div onClick={() => handleProductClick(product.id)}>
-              <img
-                src={product.image}
-                alt={product.name}
-                style={{ maxWidth: "100%", height: "auto" }}
-              />
-              <Typography variant="h6">{product.name}</Typography>
-              <Typography variant="body1">{`Price: $${product.new_price}`}</Typography>
-              <Typography variant="body1">{`Old Price: $${product.old_price}`}</Typography>
-            </div>
-          </Grid>
-        ))}
-      </Grid>
+  {abc.map((product) => (
+    <Grid item xs={12} sm={6} md={3} lg={4} key={product.id}>
+      {subCategoriesType && (
+        <Link  to={`/single-product/${subCategoriesType}/${product.id}`}>
+          <div onClick={() => handleProductClick(product.id)}>
+            <img
+              src={product.image}
+              alt={product.name}
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+            <Typography variant="h6">{product.name}</Typography>
+            <Typography variant="body1">{`Price: $${product.new_price}`}</Typography>
+            <Typography variant="body1">{`Old Price: $${product.old_price}`}</Typography>
+          </div>
+        </Link>
+      )}
+    </Grid>
+  ))}
+</Grid>
     </Container>
   );
 };
