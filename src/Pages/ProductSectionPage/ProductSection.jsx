@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Container, Grid, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 
 const ProductSection = () => {
   const usersdata = useSelector((state) => state.products);
-  const navigate = useNavigate();
+  const location = useLocation();
+
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
 
-  const handleSubcategoryClick = (category, subCategoriesType) => {
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const subCategoriesType = searchParams.get("subCategoriesType") || "DefaultType";
+
     setSelectedSubcategory(subCategoriesType);
-    navigate(
-      `/productpage?category=${category}&subCategoriesType=${subCategoriesType}`
-    );
-  };
+  }, [location.search]);
+
+  
 
   return (
     <Container maxWidth="lg" style={{ marginTop: "40px", color: "#fff" }}>
@@ -25,9 +28,10 @@ const ProductSection = () => {
           justifyContent="space-between"
           marginTop={"10px"}
         >
-          {usersdata.map((data) => (
+          {usersdata.map((data, index) => (
+            
             <div
-              key={data.category}
+              key={index}
               onMouseEnter={() => setHoveredCategory(data.category)}
               onMouseLeave={() => setHoveredCategory(null)}
               style={{ position: "relative", display: "inline-block" }}
@@ -51,39 +55,41 @@ const ProductSection = () => {
                     padding: "50px",
                     boxShadow: "8px 12px 16px rgba(0, 55,  58, 0.3)",
                     borderRadius: "13px",
-                    background: "#775959",
+                    background: "#6e4b4b50",
                     zIndex: "1",
                   }}
                 >
                   {data.subCategories &&
-                    data.subCategories.map((e) => (
-                      <Typography
-                        key={e}
-                        variant="subtitle1"
-                        align="center"
-                        style={{
-                          cursor: "pointer",
-                          justifyContent: "space-between",
-                          gap: "10px",
-                          fontSize: "20px",
-                          fontWeight: 600,
-                          fontFamily: "Arial, sans-serif",
-                        }}
-                        onClick={() =>
-                          handleSubcategoryClick(data.category, e.type)
-                        }
-                      >
-                        <Link
-                          to="/productpage"
+                    data.subCategories.map((e) => {
+                      return (
+                        <Typography
+                          key={e.type}
+                          variant="subtitle1"
+                          align="center"
                           style={{
-                            color:
-                              selectedSubcategory === e.type ? "#fff" : "#000",
+                            cursor: "pointer",
+                            justifyContent: "space-between",
+                            gap: "10px",
+                            fontSize: "20px",
+                            fontWeight: 600,
+                            fontFamily: "Arial, sans-serif",
                           }}
+                          
                         >
-                          {e.type}
-                        </Link>
-                      </Typography>
-                    ))}
+                          <Link
+                            to={`/productpage?category=${data.category}&subCategoriesType=${e.type}`}
+                            style={{
+                              color:
+                                selectedSubcategory === e.type
+                                  ? "#fff"
+                                  : "#fff",
+                            }}
+                          >
+                            {e.type}
+                          </Link>
+                        </Typography>
+                      );
+                    })}
                 </div>
               )}
             </div>

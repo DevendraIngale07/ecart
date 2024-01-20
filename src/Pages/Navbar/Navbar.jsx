@@ -16,9 +16,11 @@ import { CiMenuKebab } from "react-icons/ci";
 import logo from "../../Assets/logo.png";
 import cart_icon from "../../Assets/cart_icon.png";
 import { Dialog, DialogContent } from "@mui/material";
-
+import "../Navbar/Navbar.css"
 import LoginSignup from "../LoginSingUp/LoginSingup";
+import user from "../../Assets/user.png"
 
+  
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -111,15 +113,18 @@ const Navbar = () => {
               </IconButton>
             </div>
             <div
-              className="nav-login-cart"
+              className="navLoginCart"
               style={{
                 display: "flex",
+                fontSize: "10px",
                 alignItems: "center",
+                fontWeight: "50px",
                 gap: "15px",
-                padding: "8px",
-                backgroundColor: "#A7EEE0",
+                backgroundColor: "#dae5ed80",
+                padding: "2px",
                 marginRight: "10px",
                 borderRadius: "50px",
+                boxShadow: "3px 6px 8px rgba(0, 0, 0, 0.1)",
               }}
             >
               <Link to="/">
@@ -127,25 +132,26 @@ const Navbar = () => {
                   color="inherit"
                   onClick={() => setLoginSignupOpen(true)}
                 >
-                  Profile
+                  <img src={user} alt="" />
                 </Button>
               </Link>
             </div>
             <LoginSignupPopup />
-            <div 
-            className="cart"
-            style={{
-              backgroundColor: "#4A70BC",
-              padding: "8px",
-              marginLeft: "10px",
-              borderRadius: "50px",
-            }}
+            <div
+              className="cart"
+              style={{
+                backgroundColor: "#4A70BC",
+                padding: "8px",
+                marginLeft: "10px",
+                borderRadius: "10px",
+              }}
             >
-            <Link to="/cart">
-              <img src={cart_icon} alt="" />
-            </Link>
+              <Link to="/cart">
+                <img src={cart_icon} alt="" />
+              </Link>
             </div>
             <IconButton
+              className="menu"
               edge="end"
               color="inherit"
               onClick={handleDrawerToggle}
@@ -153,9 +159,46 @@ const Navbar = () => {
             >
               <CiMenuKebab />
             </IconButton>
+
+            <div className="bottom-nav">
+              <div
+        className="bottomnavLoginCart"
+        style={{
+          display: "flex",
+          fontSize: "10px",
+          alignItems: "center",
+          fontWeight: "50px",
+          gap: "15px",
+          backgroundColor: "#dae5ed80",
+          padding: "3px",
+          marginRight: "10px",
+          borderRadius: "50px",
+          boxShadow: "3px 6px 8px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Link to="/">
+          <Button color="inherit" onClick={() => setLoginSignupOpen(true)}>
+          <img src={user} alt="" />
+          </Button>
+        </Link>
+      </div>
+      <LoginSignupPopup />
+      <div
+        className="bottomcart"
+        style={{
+          backgroundColor: "#4A70BC",
+          padding: "8px",
+          marginLeft: "10px",
+          borderRadius: "10px",
+        }}
+      >
+        <Link to="/cart">
+          <img src={cart_icon} alt="" />
+        </Link>
+      </div>
+    </div>
           </Toolbar>
         </AppBar>
-  
       </div>
     </>
   );

@@ -3,14 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { Container, Grid, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import ProductSection from "./ProductSection";
-import { useNavigate } from "react-router-dom"; 
 
 const ProductPage = () => {
-  const location = useLocation();
-  const navigate = useNavigate(); 
+  const location = useLocation(); 
   const searchParams = new URLSearchParams(location.search);
   const category = searchParams.get("category");
-  const subCategoriesType = searchParams.get("subCategoriesType");
+  const subCategoriesType = searchParams.get("subCategoriesType") || "DefaultType";
+
 
   const showdata = useSelector((state) => state.products);
 
@@ -24,11 +23,6 @@ const ProductPage = () => {
     .map((subCat) => subCat.products)
     .flat();
 
-  const handleProductClick = (productId) => {
-    navigate(`/single-product/${subCategoriesType}/${productId}`);
-  };
-
-  console.log("subCategoriesType:", subCategoriesType);
 
   return (
     <Container
@@ -48,16 +42,17 @@ const ProductPage = () => {
     <Grid item xs={12} sm={6} md={3} lg={4} key={product.id}>
       {subCategoriesType && (
         <Link  to={`/single-product/${subCategoriesType}/${product.id}`}>
-          <div onClick={() => handleProductClick(product.id)}>
+          
+          
             <img
               src={product.image}
               alt={product.name}
               style={{ maxWidth: "100%", height: "auto" }}
             />
-            <Typography variant="h6">{product.name}</Typography>
-            <Typography variant="body1">{`Price: $${product.new_price}`}</Typography>
-            <Typography variant="body1">{`Old Price: $${product.old_price}`}</Typography>
-          </div>
+            <Typography variant="h6" style={{ color:"#fff", textDecoration: "none"}}>{product.name}</Typography>
+            <Typography variant="body1" style={{ color:"#fff"}}>{`Price: $${product.new_price}`}</Typography>
+            <Typography variant="body1" style={{ color:"#fff"}}>{`Old Price: $${product.old_price}`}</Typography>
+          
         </Link>
       )}
     </Grid>

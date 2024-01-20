@@ -13,7 +13,6 @@ import {
   Lock as LockIcon,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import HomePage from "../HomePage/HomePage"; 
 
 const LoginSignup = () => {
   const navigate = useNavigate();
@@ -64,7 +63,7 @@ const LoginSignup = () => {
         sx={{ top: "10px", marginLeft: "20px" }}
         onClick={() => {
           setAction("Login");
-          navigate("/"); // Navigate to the home page when "Sign Up" button is clicked
+          navigate("/");
         }}
       >
         SIGN UP
