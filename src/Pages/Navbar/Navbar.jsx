@@ -120,8 +120,8 @@ const Navbar = () => {
                 alignItems: "center",
                 fontWeight: "50px",
                 gap: "15px",
-                backgroundColor: "#dae5ed80",
-                padding: "2px",
+                backgroundColor: "#4a70bc84",
+                padding: "0px",
                 marginRight: "10px",
                 borderRadius: "50px",
                 boxShadow: "3px 6px 8px rgba(0, 0, 0, 0.1)",
@@ -140,13 +140,13 @@ const Navbar = () => {
             <div
               className="cart"
               style={{
-                backgroundColor: "#4A70BC",
-                padding: "8px",
+                backgroundColor: "#4a70bc84",
+                padding: "10px",
                 marginLeft: "10px",
-                borderRadius: "10px",
+                borderRadius: "50px",
               }}
             >
-              <Link to="/cart">
+              <Link to="/cartitems">
                 <img src={cart_icon} alt="" />
               </Link>
             </div>
@@ -192,7 +192,7 @@ const Navbar = () => {
           borderRadius: "10px",
         }}
       >
-        <Link to="/cart">
+        <Link to="/cartitems">
           <img src={cart_icon} alt="" />
         </Link>
       </div>

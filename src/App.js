@@ -27,8 +27,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/productsection" element={<ProductSection />} />
-            <Route path="/single-product/:subCategoriesType/:productId" element={<SingleProductPage />} />
-
+            <Route exact path="/single-product/:subCategoriesType/:productId" element={<SingleProductPage />} />
             <Route exact path="/productpage" element={<ProductPage />} />
             <Route exact path="/showproduct" element={<ShowProduct />} />
             <Route exact path="/Login" element={<LoginSignup />} />

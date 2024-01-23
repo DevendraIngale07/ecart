@@ -247,7 +247,7 @@ const all_product = [
             old_price: 120.5,
           },
         ]
-      },
+      }, 
       {
         type: "kids",
         products: [{

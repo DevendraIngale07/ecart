@@ -1,0 +1,17 @@
+{
+  "usersData": [
+    {
+      "id": "1",
+      "userName": "amit1",
+      "email": "amit1@example.com",
+      "password": "abcd"
+    },
+    {
+      "id": "2",
+      "userName": "amit2",
+      "email": "amit2@example.com",
+      "password": "1234"
+    }
+   
+  ]
+}
