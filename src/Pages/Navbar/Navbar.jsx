@@ -63,7 +63,6 @@ const Navbar = () => {
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
     setLoginClicked(true);
-
   };
 
   // Function to handle the hover out event and close the menu
@@ -87,7 +86,7 @@ const Navbar = () => {
       <div className="navbar" style={{ maxWidth: "100%" }}>
         <AppBar position="static">
           <Toolbar>
-             {/* NAVBAR LOGO BAR STARAT  */}
+            {/* NAVBAR LOGO BAR STARAT  */}
             <div
               className="nav-logo"
               style={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -138,49 +137,53 @@ const Navbar = () => {
                 <FaSearch />
               </IconButton>
             </div>
-             {/* LOGIN BUTTON  STARAT  */}
-             <div
-      className="navLoginCart"
-      style={{
-        display: "flex",
-        fontSize: "10px",
-        alignItems: "center",
-        fontWeight: "50px",
-        gap: "15px",
-        backgroundColor: "#20458e84",
-        padding: "5px",
-        width: "80px",
-        marginRight: "10px",
-        borderRadius: "10px",
-        boxShadow: "3px 6px 8px rgba(0, 0, 0, 0.1)",
-      }}
-      onMouseEnter={handleMenuOpen}  
-      onMouseLeave={handleMenuClose} 
-    >
-      <Button color="inherit" onClick={() => setLoginSignupOpen(true)} startIcon={<FaRegUserCircle />}>
-        LogIN
-      </Button>
+            {/* LOGIN BUTTON  STARAT  */}
+            <div
+              className="navLoginCart"
+              style={{
+                display: "flex",
+                fontSize: "10px",
+                alignItems: "center",
+                fontWeight: "50px",
+                gap: "15px",
+                backgroundColor: "#20458e84",
+                padding: "5px",
+                width: "80px",
+                marginRight: "10px",
+                borderRadius: "10px",
+                boxShadow: "3px 6px 8px rgba(0, 0, 0, 0.1)",
+              }}
+              onMouseEnter={handleMenuOpen}
+              onMouseLeave={handleMenuClose}
+            >
+              <Button
+                color="inherit"
+                onClick={() => setLoginSignupOpen(true)}
+                startIcon={<FaRegUserCircle />}
+              >
+                LogIN
+              </Button>
 
-      {/* Menu for drop-down */}
-      <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-        >
-          {loginClicked ? (
-    <MenuItem onClick={handleLoginClick}>LOG IN</MenuItem>
-  ) : (
-    [
-      <MenuItem key="login" onClick={handleLoginClick}>
-        LOG IN
-      </MenuItem>,
-      <MenuItem key="signup" onClick={handleSubmit}>
-        SIGN UP
-      </MenuItem>,
-    ]
-  )}
-</Menu>
-    </div>
+              {/* Menu for drop-down */}
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+              >
+                {loginClicked ? (
+                  <MenuItem onClick={handleLoginClick}>LOG IN</MenuItem>
+                ) : (
+                  [
+                    <MenuItem key="login" onClick={handleLoginClick}>
+                      LOG IN
+                    </MenuItem>,
+                    <MenuItem key="signup" onClick={handleSubmit}>
+                      SIGN UP
+                    </MenuItem>,
+                  ]
+                )}
+              </Menu>
+            </div>
             {/* CART BUTTON  STARAT  */}
             <div
               className="cart"
@@ -209,9 +212,9 @@ const Navbar = () => {
       </div>
       <div
         style={{
-          backgroundColor:"#0000"
+          backgroundColor: "#0000",
         }}
-        >
+      >
         <div
           className="bottom-search_bar"
           style={{
@@ -222,7 +225,7 @@ const Navbar = () => {
             marginRight: "auto",
             maxWidth: "650px",
             width: "100%",
-            border:"1px solid black"
+            border: "1px solid black",
           }}
         >
           <InputBase

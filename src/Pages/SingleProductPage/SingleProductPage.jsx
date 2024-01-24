@@ -50,7 +50,6 @@ const SingleProductPage = () => {
           </Typography>
 
           <Grid container spacing={2}>
-            
             <Grid item xs={12} sm={6} md={6}>
               <img
                 src={selectedProduct.image}
@@ -100,10 +99,12 @@ const SingleProductPage = () => {
                 style={{ fontSize: "20px" }}
               >
                 <strong>Description:</strong>
-                <strong style={{padding: "10px"}}>On one corner of my dresser sits a smiling toy clown on a tiny unicycle―a gift I received last Christmas from a close friend.</strong>
-                
+                <strong style={{ padding: "10px" }}>
+                  On one corner of my dresser sits a smiling toy clown on a tiny
+                  unicycle―a gift I received last Christmas from a close friend.
+                </strong>
               </Typography>
-              <br/>
+              <br />
               <Typography
                 variant="body1"
                 paragraph
@@ -118,7 +119,6 @@ const SingleProductPage = () => {
                     cursor: "pointer",
                   }}
                 >
-                  
                   S{" "}
                 </strong>
                 <strong
@@ -129,7 +129,6 @@ const SingleProductPage = () => {
                     cursor: "pointer",
                   }}
                 >
-                  
                   M{" "}
                 </strong>
                 <strong
@@ -140,7 +139,6 @@ const SingleProductPage = () => {
                     cursor: "pointer",
                   }}
                 >
-                  
                   L{" "}
                 </strong>
                 <strong
@@ -151,7 +149,6 @@ const SingleProductPage = () => {
                     cursor: "pointer",
                   }}
                 >
-                  
                   XL{" "}
                 </strong>
                 <strong
@@ -165,7 +162,7 @@ const SingleProductPage = () => {
                   XXL
                 </strong>
               </Typography>
-              <br/>
+              <br />
               <Link to={`/cartitems`}>
                 <Button variant="contained" color="primary">
                   Add to Cart

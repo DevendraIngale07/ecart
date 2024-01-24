@@ -11,7 +11,7 @@ const HeroSection = () => {
     "https://vmaxo.com/includes/uploads/menu_image/f54603a3524ae1a468133a6f57cf49ee.jpg",
     "https://img.freepik.com/free-vector/flat-furniture-sale-banner-with-photo_23-2148926442.jpg?size=626&ext=jpg&ga=GA1.1.211083069.1704977160&semt=ais",
     "https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/f51d4324b73f58d7.jpg?q=20",
-    "https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/ee4cfe398734c78d.jpg?q=20"
+    "https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/ee4cfe398734c78d.jpg?q=20",
   ];
 
   const settings = {
@@ -40,7 +40,11 @@ const HeroSection = () => {
 
   return (
     <div>
-      <Slider {...settings} style={{ marginTop: "40px" }} nextArrow={<CustomNextArrow />}>
+      <Slider
+        {...settings}
+        style={{ marginTop: "40px" }}
+        nextArrow={<CustomNextArrow />}
+      >
         {image.map((imageUrl, index) => (
           <Paper key={index} style={{ position: "relative" }}>
             <img

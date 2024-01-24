@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -61,7 +61,6 @@ const LoginSignup = () => {
 
   useEffect(() => {
     if (loginClicked) {
-      
     }
   }, [loginClicked]);
 
@@ -131,26 +130,28 @@ const LoginSignup = () => {
 
   return (
     <Container className="container">
-      <Typography variant="h4" className="header" style={{ display: "flex", alignItems: "center" }}>
-  {action}
-  <Button
-    style={{
-      padding: "4px",
-      border: "1px solid black",
-      marginLeft: "320px", // Adjusted margin
-      background: "#7E80BA",
-      color: "black",
-      width: "5.5rem",
-    }}
-    onMouseEnter={handleMenuOpen}
-  >
-    Option
-  </Button>
-</Typography>
-
-      <Typography>
-        
+      <Typography
+        variant="h4"
+        className="header"
+        style={{ display: "flex", alignItems: "center" }}
+      >
+        {action}
+        <Button
+          style={{
+            padding: "4px",
+            border: "1px solid black",
+            marginLeft: "320px",
+            background: "#7E80BA",
+            color: "black",
+            width: "5.5rem",
+          }}
+          onMouseEnter={handleMenuOpen}
+        >
+          Account
+        </Button>
       </Typography>
+
+      <Typography></Typography>
       <form>
         <Grid container spacing={2} className="inputs">
           {action === "Login" ? null : (

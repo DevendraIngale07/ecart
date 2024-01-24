@@ -8,8 +8,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useState } from "react";
-const PAGES = ["SHOP", "MENS", "WOMENS", "KIDS", "LOG IN"]
-
+const PAGES = ["SHOP", "MENS", "WOMENS", "KIDS", "LOG IN"];
 
 const DrawerComponent = () => {
   const [openDrawer, setopenDrawer] = useState(false);
@@ -17,17 +16,13 @@ const DrawerComponent = () => {
     <>
       <Drawer open={openDrawer} onClose={() => setopenDrawer(false)}>
         <List>
-          
-          {
-            PAGES.map((page, index) => (
-              <ListItemButton onClick={() => setopenDrawer(false)} key={index}>
-            <ListItemIcon>
-              <ListItemText>{page}</ListItemText>
-            </ListItemIcon>
-          </ListItemButton>
-            ))
-          }
-          
+          {PAGES.map((page, index) => (
+            <ListItemButton onClick={() => setopenDrawer(false)} key={index}>
+              <ListItemIcon>
+                <ListItemText>{page}</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          ))}
         </List>
       </Drawer>
       <IconButton
