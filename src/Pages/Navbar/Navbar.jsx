@@ -9,6 +9,8 @@ import {
   List,
   ListItem,
   ListItemText,
+  MenuItem,
+  Menu,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
@@ -16,11 +18,9 @@ import { CiMenuKebab } from "react-icons/ci";
 import logo from "../../Assets/logo.png";
 import cart_icon from "../../Assets/cart_icon.png";
 import { Dialog, DialogContent } from "@mui/material";
-import "../Navbar/Navbar.css"
+import "../Navbar/Navbar.css";
 import LoginSignup from "../LoginSingUp/LoginSingup";
-import user from "../../Assets/user.png"
-
-  
+import { FaRegUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,6 +37,7 @@ const Navbar = () => {
       </DialogContent>
     </Dialog>
   );
+  const [loginClicked, setLoginClicked] = useState(false);
 
   const drawer = (
     <Drawer anchor="left" open={menuOpen} onClose={handleDrawerToggle}>
@@ -56,13 +57,37 @@ const Navbar = () => {
       </List>
     </Drawer>
   );
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  // Function to handle the hover event and open the menu
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+    setLoginClicked(true);
+
+  };
+
+  // Function to handle the hover out event and close the menu
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setLoginClicked(false);
+  };
+  const handleLoginClick = async () => {
+    console.log("Login button clicked");
+    setLoginSignupOpen(true);
+  };
+
+  const handleSubmit = async () => {
+    console.log("Sign Up button clicked");
+    setLoginSignupOpen(true);
+  };
 
   return (
     <>
       {drawer}
-      <div style={{ maxWidth: "100%" }}>
+      <div className="navbar" style={{ maxWidth: "100%" }}>
         <AppBar position="static">
           <Toolbar>
+             {/* NAVBAR LOGO BAR STARAT  */}
             <div
               className="nav-logo"
               style={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -78,6 +103,7 @@ const Navbar = () => {
                 Flipkart
               </p>
             </div>
+            {/* SEARCH BAR STARAT  */}
             <div
               className="search_bar"
               style={{
@@ -112,31 +138,50 @@ const Navbar = () => {
                 <FaSearch />
               </IconButton>
             </div>
-            <div
-              className="navLoginCart"
-              style={{
-                display: "flex",
-                fontSize: "10px",
-                alignItems: "center",
-                fontWeight: "50px",
-                gap: "15px",
-                backgroundColor: "#4a70bc84",
-                padding: "0px",
-                marginRight: "10px",
-                borderRadius: "50px",
-                boxShadow: "3px 6px 8px rgba(0, 0, 0, 0.1)",
-              }}
-            >
-              <Link to="/">
-                <Button
-                  color="inherit"
-                  onClick={() => setLoginSignupOpen(true)}
-                >
-                  <img src={user} alt="" />
-                </Button>
-              </Link>
-            </div>
-            <LoginSignupPopup />
+             {/* LOGIN BUTTON  STARAT  */}
+             <div
+      className="navLoginCart"
+      style={{
+        display: "flex",
+        fontSize: "10px",
+        alignItems: "center",
+        fontWeight: "50px",
+        gap: "15px",
+        backgroundColor: "#20458e84",
+        padding: "5px",
+        width: "80px",
+        marginRight: "10px",
+        borderRadius: "10px",
+        boxShadow: "3px 6px 8px rgba(0, 0, 0, 0.1)",
+      }}
+      onMouseEnter={handleMenuOpen}  
+      onMouseLeave={handleMenuClose} 
+    >
+      <Button color="inherit" onClick={() => setLoginSignupOpen(true)} startIcon={<FaRegUserCircle />}>
+        LogIN
+      </Button>
+
+      {/* Menu for drop-down */}
+      <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+        >
+          {loginClicked ? (
+    <MenuItem onClick={handleLoginClick}>LOG IN</MenuItem>
+  ) : (
+    [
+      <MenuItem key="login" onClick={handleLoginClick}>
+        LOG IN
+      </MenuItem>,
+      <MenuItem key="signup" onClick={handleSubmit}>
+        SIGN UP
+      </MenuItem>,
+    ]
+  )}
+</Menu>
+    </div>
+            {/* CART BUTTON  STARAT  */}
             <div
               className="cart"
               style={{
@@ -159,47 +204,46 @@ const Navbar = () => {
             >
               <CiMenuKebab />
             </IconButton>
-
-            <div className="bottom-nav">
-              <div
-        className="bottomnavLoginCart"
-        style={{
-          display: "flex",
-          fontSize: "10px",
-          alignItems: "center",
-          fontWeight: "50px",
-          gap: "15px",
-          backgroundColor: "#dae5ed80",
-          padding: "3px",
-          marginRight: "10px",
-          borderRadius: "50px",
-          boxShadow: "3px 6px 8px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <Link to="/">
-          <Button color="inherit" onClick={() => setLoginSignupOpen(true)}>
-          <img src={user} alt="" />
-          </Button>
-        </Link>
-      </div>
-      <LoginSignupPopup />
-      <div
-        className="bottomcart"
-        style={{
-          backgroundColor: "#4A70BC",
-          padding: "8px",
-          marginLeft: "10px",
-          borderRadius: "10px",
-        }}
-      >
-        <Link to="/cartitems">
-          <img src={cart_icon} alt="" />
-        </Link>
-      </div>
-    </div>
           </Toolbar>
         </AppBar>
       </div>
+      <div
+        style={{
+          backgroundColor:"#0000"
+        }}
+        >
+        <div
+          className="bottom-search_bar"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: "10px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            maxWidth: "650px",
+            width: "100%",
+            border:"1px solid black"
+          }}
+        >
+          <InputBase
+            placeholder="Search"
+            className="input"
+            inputProps={{ "aria-label": "search" }}
+            style={{
+              flex: 1,
+              padding: "3px",
+              borderRadius: "5px",
+              border: "1px solid #ddd",
+              background: "#fff",
+              display: "flex",
+              alignItems: "center",
+            }}
+            startAdornment={<FaSearch style={{ marginRight: "8px" }} />}
+          />
+        </div>
+      </div>
+
+      <LoginSignupPopup />
     </>
   );
 };

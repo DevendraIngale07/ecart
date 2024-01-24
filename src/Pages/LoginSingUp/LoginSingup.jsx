@@ -1,4 +1,4 @@
-import React, { useState,useEffect  } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Container,
   Typography,
@@ -7,6 +7,8 @@ import {
   Grid,
   Link,
   InputAdornment,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import {
   Person as PersonIcon,
@@ -15,10 +17,9 @@ import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
 
 const LoginSignup = () => {
-  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null);
   const [action, setAction] = useState("Sign Up");
   const [showPassword, setShowPassword] = useState(false);
   const [loginClicked, setLoginClicked] = useState(false);
@@ -31,40 +32,86 @@ const LoginSignup = () => {
   const handleInputChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
-  const handleLoginClick = () => {
+
+  const handleLoginClick = async () => {
     console.log("Login button clicked");
     setAction("Login");
     setLoginClicked(true);
+
+    const userExists = await checkUserExists(formData.email, formData.password);
+    if (userExists) {
+      // console.log("User exists. Logging in...");
+      alert("Welcome ...!");
+    } else {
+      // console.log("User does not exist. Sign up first.");
+      alert("User does not exist. Please sign up first.");
+    }
   };
 
   const handleTogglePassword = () => {
     setShowPassword((prevShow) => !prevShow);
   };
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   useEffect(() => {
     if (loginClicked) {
-      console.log("Before navigation");
-      navigate("/");
-      console.log("after navigation");
+      
     }
-  }, [loginClicked, navigate]);
+  }, [loginClicked]);
 
+  const checkUserExists = async (email, password) => {
+    const apiUrl = "http://localhost:3001/usersData";
+
+    try {
+      const response = await fetch(apiUrl);
+      const userData = await response.json();
+
+      const userExists = userData.some(
+        (user) =>
+          user.email.toLowerCase() === email.toLowerCase() &&
+          user.password === password
+      );
+
+      return userExists;
+    } catch (error) {
+      console.error("Error:", error);
+      return false;
+    }
+  };
   const handleSubmit = async () => {
     if (!formData.name || !formData.email || !formData.password) {
       alert("Please fill in all the required fields.");
       return;
     }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!emailRegex.test(formData.email)) {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
+    if (!emailRegex.test(formData.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
 
     const apiUrl = "http://localhost:3001/usersData";
 
     try {
-      const response = await fetch(apiUrl, {
+      const response = await fetch(apiUrl);
+      const userData = await response.json();
+      const emailExists = userData.some(
+        (user) => user.email.toLowerCase() === formData.email.toLowerCase()
+      );
+
+      if (emailExists) {
+        alert("Email already exists. Please use a different email address.");
+        return;
+      }
+
+      const addUserResponse = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,11 +119,8 @@ const LoginSignup = () => {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      if (addUserResponse.ok) {
         alert("User added successfully!");
-        console.log("Before navigation");
-        navigate("/");
-        console.log("After navigation");
       } else {
         console.error("Failed to add user.");
       }
@@ -87,8 +131,25 @@ const LoginSignup = () => {
 
   return (
     <Container className="container">
-      <Typography variant="h4" className="header">
-        {action}
+      <Typography variant="h4" className="header" style={{ display: "flex", alignItems: "center" }}>
+  {action}
+  <Button
+    style={{
+      padding: "4px",
+      border: "1px solid black",
+      marginLeft: "320px", // Adjusted margin
+      background: "#7E80BA",
+      color: "black",
+      width: "5.5rem",
+    }}
+    onMouseEnter={handleMenuOpen}
+  >
+    Option
+  </Button>
+</Typography>
+
+      <Typography>
+        
       </Typography>
       <form>
         <Grid container spacing={2} className="inputs">
@@ -146,23 +207,34 @@ const LoginSignup = () => {
         </Typography>
       )}
       <div className="submit-container">
-      <Button
-      variant={action === "Login" ? "contained" : "outlined"}
-      className={action === "Login" ? "submit gray" : "submit"}
-      sx={{ top: "10px", gap: "5px" }}
-      onClick={handleLoginClick}
-    >
-      LOG IN
-    </Button>
+        <Button
+          variant={action === "Login" ? "contained" : "outlined"}
+          className={action === "Login" ? "submit gray" : "submit"}
+          sx={{ top: "10px", gap: "5px" }}
+          onClick={handleLoginClick}
+          // onMouseEnter={handleMenuOpen}
+        >
+          LOG IN
+        </Button>
         <Button
           variant={action === "Sign Up" ? "contained" : "outlined"}
           className={action === "Sign Up" ? "submit gray" : "submit"}
           sx={{ top: "10px", marginLeft: "20px" }}
           onClick={handleSubmit}
+          // onMouseEnter={handleMenuOpen}
         >
           SIGN UP
         </Button>
+        <Button></Button>
       </div>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={() => setAction("Login")}>Log In</MenuItem>
+        <MenuItem onClick={() => setAction("Sign Up")}>Sign Up</MenuItem>
+      </Menu>
     </Container>
   );
 };

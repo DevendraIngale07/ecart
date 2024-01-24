@@ -7,7 +7,6 @@ import HomePage from "./Pages/HomePage/HomePage";
 import SingleProductPage from "./Pages/SingleProductPage/SingleProductPage";
 import Navbar from "./Pages/Navbar/Navbar";
 import ProductSection from "./Pages/ProductSectionPage/ProductSection";
-import LoginSignup from "./Pages/LoginSingUp/LoginSingup";
 import ProductPage from "./Pages/ProductSectionPage/AllProductPage";
 import ShowProduct from "./Pages/HomePage/ShowProducts";
 import CartItems from "./Components/CartItems/CartItems";
@@ -30,7 +29,7 @@ function App() {
             <Route exact path="/single-product/:subCategoriesType/:productId" element={<SingleProductPage />} />
             <Route exact path="/productpage" element={<ProductPage />} />
             <Route exact path="/showproduct" element={<ShowProduct />} />
-            <Route exact path="/Login" element={<LoginSignup />} />
+            {/* <Route exact path="/Login" element={<LoginSignup />} /> */}
             <Route exact path="/cartitems" element={<CartItems />} />
           </Routes>
         </Provider>

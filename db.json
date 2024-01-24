@@ -11,7 +11,30 @@
       "userName": "amit2",
       "email": "amit2@example.com",
       "password": "1234"
+    },
+    {
+      "id": "f616",
+      "name": "devendra",
+      "email": "devendraingale@gmail.com",
+      "password": "Devendra"
+    },
+    {
+      "id": "9ad1",
+      "name": "vdfv",
+      "email": "deve@gmail.com",
+      "password": "dfv"
+    },
+    {
+      "id": "27f7",
+      "name": "DevendraIngale",
+      "email": "devendraingale@gmail.com",
+      "password": "devendra"
+    },
+    {
+      "id": "0f70",
+      "name": "Devendra ingale",
+      "email": "devendraingale11@gmail.com",
+      "password": "devendra"
     }
-   
   ]
 }
