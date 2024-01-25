@@ -8,14 +8,28 @@
   display: none !important;
 }
 
-.navLoginCart Button{
-  font-size: 10px; 
-  color: #fff;
-  font-weight: 50px;
-  padding: 15px;
-  height: 20px;
-  width: 50px;
-  
+.navLoginCart {
+  display: flex !important;
+  align-items: center !important;
+  gap: 15px !important;
+  background-color: #20458e84 !important;
+  padding: 5px !important;
+  padding-right: 0px !important;
+  width: 80px !important;
+  margin-right: 10px !important;
+  border-radius: 10px !important;
+  box-shadow: 3px 6px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.navLoginCart Button {
+  font-size: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  color: #fff !important;
+  font-weight: 50 !important;
+  padding: 15px !important;
+  height: 20px !important;
+  width: 50px !important;
 }
 
 @media screen and (max-width: 750px) {

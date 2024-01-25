@@ -7,8 +7,6 @@ import {
   Grid,
   Link,
   InputAdornment,
-  Menu,
-  MenuItem,
 } from "@mui/material";
 import {
   Person as PersonIcon,
@@ -18,15 +16,15 @@ import {
   VisibilityOff as VisibilityOffIcon,
 } from "@mui/icons-material";
 
-const LoginSignup = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [action, setAction] = useState("Sign Up");
+const LoginSignup = (props) => {
+  const [action, setAction] = useState("Login");
   const [showPassword, setShowPassword] = useState(false);
   const [loginClicked, setLoginClicked] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    isLoggedIn: false,
   });
 
   const handleInputChange = (field, value) => {
@@ -34,55 +32,47 @@ const LoginSignup = () => {
   };
 
   const handleLoginClick = async () => {
-    console.log("Login button clicked");
-    setAction("Login");
     setLoginClicked(true);
+    const apiUrl = "http://localhost:3001/usersData";
 
-    const userExists = await checkUserExists(formData.email, formData.password);
-    if (userExists) {
-      // console.log("User exists. Logging in...");
-      alert("Welcome ...!");
-    } else {
-      // console.log("User does not exist. Sign up first.");
-      alert("User does not exist. Please sign up first.");
+    try {
+      const response = await fetch(apiUrl);
+      const usersData = await response.json();
+
+      const user = usersData.find(
+        (u) =>
+          u.email.toLowerCase() === formData.email.toLowerCase() &&
+          u.password === formData.password
+      );
+
+      if (user) {
+        user.isLogin = true;
+        setFormData(user);
+        const { password, ...userWithoutPassword } = user;
+        console.log("User logged in:", userWithoutPassword);
+
+        localStorage.setItem("userData", JSON.stringify(userWithoutPassword));
+
+        props.setLoginSignupOpen(false);
+        
+      } else {
+        alert("User does not exist. Please sign up first.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
   const handleTogglePassword = () => {
     setShowPassword((prevShow) => !prevShow);
   };
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
 
   useEffect(() => {
     if (loginClicked) {
+      setLoginClicked(false);
     }
   }, [loginClicked]);
 
-  const checkUserExists = async (email, password) => {
-    const apiUrl = "http://localhost:3001/usersData";
-
-    try {
-      const response = await fetch(apiUrl);
-      const userData = await response.json();
-
-      const userExists = userData.some(
-        (user) =>
-          user.email.toLowerCase() === email.toLowerCase() &&
-          user.password === password
-      );
-
-      return userExists;
-    } catch (error) {
-      console.error("Error:", error);
-      return false;
-    }
-  };
   const handleSubmit = async () => {
     if (!formData.name || !formData.email || !formData.password) {
       alert("Please fill in all the required fields.");
@@ -117,9 +107,11 @@ const LoginSignup = () => {
         },
         body: JSON.stringify(formData),
       });
+      // console.log(formData);
 
       if (addUserResponse.ok) {
         alert("User added successfully!");
+        setAction("Login");
       } else {
         console.error("Failed to add user.");
       }
@@ -136,22 +128,8 @@ const LoginSignup = () => {
         style={{ display: "flex", alignItems: "center" }}
       >
         {action}
-        <Button
-          style={{
-            padding: "4px",
-            border: "1px solid black",
-            marginLeft: "320px",
-            background: "#7E80BA",
-            color: "black",
-            width: "5.5rem",
-          }}
-          onMouseEnter={handleMenuOpen}
-        >
-          Account
-        </Button>
       </Typography>
 
-      <Typography></Typography>
       <form>
         <Grid container spacing={2} className="inputs">
           {action === "Login" ? null : (
@@ -203,39 +181,52 @@ const LoginSignup = () => {
         </Grid>
       </form>
       {action === "Sign Up" ? null : (
-        <Typography variant="body2" className="forgot-password">
+        <Typography
+          variant="body2"
+          className="forgot-password"
+          style={{ cursor: "pointer" }}
+        >
           Lost Password? <Link href="#">Click Here!</Link>
+          <br />
+          <Link onClick={() => setAction("Sign Up")}>
+            New to Flipkart? Create an account
+          </Link>
         </Typography>
       )}
+      {action === "Login" ? null : (
+        <Typography
+          variant="body2"
+          className="forgot-password"
+          style={{ cursor: "pointer" }}
+        >
+          Existing User? <Link onClick={() => setAction("Login")}>Log in</Link>
+        </Typography>
+      )}
+
       <div className="submit-container">
-        <Button
-          variant={action === "Login" ? "contained" : "outlined"}
-          className={action === "Login" ? "submit gray" : "submit"}
-          sx={{ top: "10px", gap: "5px" }}
-          onClick={handleLoginClick}
-          // onMouseEnter={handleMenuOpen}
-        >
-          LOG IN
-        </Button>
-        <Button
-          variant={action === "Sign Up" ? "contained" : "outlined"}
-          className={action === "Sign Up" ? "submit gray" : "submit"}
-          sx={{ top: "10px", marginLeft: "20px" }}
-          onClick={handleSubmit}
-          // onMouseEnter={handleMenuOpen}
-        >
-          SIGN UP
-        </Button>
-        <Button></Button>
+        {action === "Login" && (
+          <Button
+            variant="contained"
+            className="submit"
+            sx={{ top: "10px", gap: "5px" }}
+            onClick={handleLoginClick}
+          >
+            LOG IN
+          </Button>
+        )}
+        {action === "Sign Up" && (
+          <Button
+            variant="contained"
+            className="submit"
+            sx={{ top: "10px", marginLeft: "20px" }}
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            SIGN UP
+          </Button>
+        )}
       </div>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
-        <MenuItem onClick={() => setAction("Login")}>Log In</MenuItem>
-        <MenuItem onClick={() => setAction("Sign Up")}>Sign Up</MenuItem>
-      </Menu>
     </Container>
   );
 };

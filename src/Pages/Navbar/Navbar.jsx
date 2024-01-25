@@ -9,8 +9,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  MenuItem,
-  Menu,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
@@ -33,11 +31,10 @@ const Navbar = () => {
   const LoginSignupPopup = () => (
     <Dialog open={loginSignupOpen} onClose={() => setLoginSignupOpen(false)}>
       <DialogContent>
-        <LoginSignup />
+        <LoginSignup setLoginSignupOpen={setLoginSignupOpen} />
       </DialogContent>
     </Dialog>
   );
-  const [loginClicked, setLoginClicked] = useState(false);
 
   const drawer = (
     <Drawer anchor="left" open={menuOpen} onClose={handleDrawerToggle}>
@@ -57,28 +54,28 @@ const Navbar = () => {
       </List>
     </Drawer>
   );
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  // Function to handle the hover event and open the menu
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-    setLoginClicked(true);
+  const getUserDataFromLocalStorage = () => {
+    try {
+      const userDataString = localStorage.getItem("userData");
+      if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        return userData;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error fetching user data from local storage:", error);
+      return null;
+    }
   };
 
-  // Function to handle the hover out event and close the menu
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    setLoginClicked(false);
-  };
-  const handleLoginClick = async () => {
-    console.log("Login button clicked");
-    setLoginSignupOpen(true);
-  };
+  const userData = getUserDataFromLocalStorage();
 
-  const handleSubmit = async () => {
-    console.log("Sign Up button clicked");
-    setLoginSignupOpen(true);
-  };
+  if (userData) {
+    console.log("User data:", userData.name);
+  } else {
+    console.log("User data not found in local storage.");
+  }
+  // console.log(localStorage.getItem("userData"));
 
   return (
     <>
@@ -138,24 +135,7 @@ const Navbar = () => {
               </IconButton>
             </div>
             {/* LOGIN BUTTON  STARAT  */}
-            <div
-              className="navLoginCart"
-              style={{
-                display: "flex",
-                fontSize: "10px",
-                alignItems: "center",
-                fontWeight: "50px",
-                gap: "15px",
-                backgroundColor: "#20458e84",
-                padding: "5px",
-                width: "80px",
-                marginRight: "10px",
-                borderRadius: "10px",
-                boxShadow: "3px 6px 8px rgba(0, 0, 0, 0.1)",
-              }}
-              onMouseEnter={handleMenuOpen}
-              onMouseLeave={handleMenuClose}
-            >
+            <div className="navLoginCart">
               <Button
                 color="inherit"
                 onClick={() => setLoginSignupOpen(true)}
@@ -163,26 +143,6 @@ const Navbar = () => {
               >
                 LogIN
               </Button>
-
-              {/* Menu for drop-down */}
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-              >
-                {loginClicked ? (
-                  <MenuItem onClick={handleLoginClick}>LOG IN</MenuItem>
-                ) : (
-                  [
-                    <MenuItem key="login" onClick={handleLoginClick}>
-                      LOG IN
-                    </MenuItem>,
-                    <MenuItem key="signup" onClick={handleSubmit}>
-                      SIGN UP
-                    </MenuItem>,
-                  ]
-                )}
-              </Menu>
             </div>
             {/* CART BUTTON  STARAT  */}
             <div
@@ -210,6 +170,7 @@ const Navbar = () => {
           </Toolbar>
         </AppBar>
       </div>
+      {/* BOTTTOM SEARCH BAR MEDIA QUERY */}
       <div
         style={{
           backgroundColor: "#0000",
