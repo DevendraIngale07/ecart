@@ -53,8 +53,10 @@ const LoginSignup = (props) => {
 
         localStorage.setItem("userData", JSON.stringify(userWithoutPassword));
 
+        // Trigger a re-render with the user data
         props.setLoginSignupOpen(false);
-        
+        // Use the setUserData function from props
+        props.setUserData(userWithoutPassword);
       } else {
         alert("User does not exist. Please sign up first.");
       }
@@ -175,7 +177,7 @@ const LoginSignup = (props) => {
                   </InputAdornment>
                 ),
               }}
-              autoComplete="current-password"
+              
             />
           </Grid>
         </Grid>
@@ -203,7 +205,7 @@ const LoginSignup = (props) => {
         </Typography>
       )}
 
-      <div className="submit-container">
+<div className="submit-container">
         {action === "Login" && (
           <Button
             variant="contained"

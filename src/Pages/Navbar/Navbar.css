@@ -29,7 +29,8 @@
   font-weight: 50 !important;
   padding: 15px !important;
   height: 20px !important;
-  width: 50px !important;
+  width: 250px !important;
+  max-width: auto !important;
 }
 
 @media screen and (max-width: 750px) {

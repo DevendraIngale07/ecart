@@ -20,6 +20,8 @@ import "../Navbar/Navbar.css";
 import LoginSignup from "../LoginSingUp/LoginSingup";
 import { FaRegUserCircle } from "react-icons/fa";
 
+
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -27,6 +29,7 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
   const [loginSignupOpen, setLoginSignupOpen] = useState(false);
+
 
   const LoginSignupPopup = () => (
     <Dialog open={loginSignupOpen} onClose={() => setLoginSignupOpen(false)}>
@@ -67,16 +70,14 @@ const Navbar = () => {
       return null;
     }
   };
-
+  
   const userData = getUserDataFromLocalStorage();
-
+  
   if (userData) {
     console.log("User data:", userData.name);
   } else {
     console.log("User data not found in local storage.");
   }
-  // console.log(localStorage.getItem("userData"));
-
   return (
     <>
       {drawer}
@@ -141,7 +142,7 @@ const Navbar = () => {
                 onClick={() => setLoginSignupOpen(true)}
                 startIcon={<FaRegUserCircle />}
               >
-                LogIN
+                {userData ? userData.name : "LogIN"}
               </Button>
             </div>
             {/* CART BUTTON  STARAT  */}
