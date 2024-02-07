@@ -25,6 +25,7 @@ const LoginSignup = (props) => {
     name: "",
     email: "",
     password: "",
+    isLoggedIn: false
   });
   const handleInputChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
@@ -34,16 +35,19 @@ const LoginSignup = (props) => {
 
     try {
       let response = await axios.post(apiUrl, formData);
-      
+
       if (response.data && response.data.userData) {
-          localStorage.setItem("userData", JSON.stringify(response.data.userData));
-          props.setLoginSignupOpen(false);
+        localStorage.setItem(
+          "userData",
+          JSON.stringify(response.data.userData)
+        );
+        props.setLoginSignupOpen(false);
       } else {
-          alert("Enter valid Email-id and password");
+        alert("Enter valid Email-id and password");
       }
-  } catch (error) {
+    } catch (error) {
       console.alert("Error:", error);
-  }
+    }
   };
 
   const handleTogglePassword = () => {
