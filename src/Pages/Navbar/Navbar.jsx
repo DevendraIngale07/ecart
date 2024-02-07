@@ -10,7 +10,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { CiMenuKebab } from "react-icons/ci";
 import logo from "../../Assets/logo.png";
@@ -23,13 +23,11 @@ import { MdOutlineLogout } from "react-icons/md";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  
+  const [loginSignupOpen, setLoginSignupOpen] = useState(false);
+
   const handleDrawerToggle = () => {
     setMenuOpen(!menuOpen);
   };
-  const [loginSignupOpen, setLoginSignupOpen] = useState(false);
-
-  
 
   const LoginSignupPopup = () => (
     <Dialog open={loginSignupOpen} onClose={() => setLoginSignupOpen(false)}>
@@ -39,29 +37,11 @@ const Navbar = () => {
     </Dialog>
   );
 
-  const drawer = (
-    <Drawer anchor="left" open={menuOpen} onClose={handleDrawerToggle}>
-      <List>
-        <ListItem className="drawer-list-item" button>
-          <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem className="drawer-list-item" button>
-          <ListItemText primary="About" />
-        </ListItem>
-        <ListItem className="drawer-list-item" button>
-          <ListItemText primary="Services" />
-        </ListItem>
-        <ListItem className="drawer-list-item" button>
-          <ListItemText primary="Setting" />
-        </ListItem>
-      </List>
-    </Drawer>
-  );
   const getUserDataFromLocalStorage = () => {
     try {
       const userDataString = localStorage.getItem("userData");
       if (userDataString) {
-        const userData =  JSON.parse(userDataString);
+        const userData = JSON.parse(userDataString);
         return userData;
       }
       return null;
@@ -73,24 +53,33 @@ const Navbar = () => {
 
   const userData = getUserDataFromLocalStorage();
 
-  if (userData) {
-    console.log("User data:", userData.name);
-  } else {
-    console.log("User data not found in local storage.");
-  }
-
-  const logOut = () =>{
+  const logOut = () => {
     console.log("Logging out...");
     localStorage.removeItem("userData");
     window.location.reload();
-  }
+  };
+
   return (
     <>
-      {drawer}
+      <Drawer anchor="left" open={menuOpen} onClose={handleDrawerToggle}>
+        <List>
+          <ListItem className="drawer-list-item" button>
+            <ListItemText primary="Home" />
+          </ListItem>
+          <ListItem className="drawer-list-item" button>
+            <ListItemText primary="About" />
+          </ListItem>
+          <ListItem className="drawer-list-item" button>
+            <ListItemText primary="Services" />
+          </ListItem>
+          <ListItem className="drawer-list-item" button>
+            <ListItemText primary="Setting" />
+          </ListItem>
+        </List>
+      </Drawer>
       <div className="navbar" style={{ maxWidth: "100%" }}>
         <AppBar position="static">
           <Toolbar>
-            {/* NAVBAR LOGO BAR STARAT  */}
             <div
               className="nav-logo"
               style={{ display: "flex", alignItems: "center", gap: "10px" }}
@@ -106,7 +95,6 @@ const Navbar = () => {
                 Flipkart
               </p>
             </div>
-            {/* SEARCH BAR STARAT  */}
             <div
               className="search_bar"
               style={{
@@ -133,15 +121,11 @@ const Navbar = () => {
               <IconButton
                 type="button"
                 className="search_icon"
-                style={{
-                  padding: "8px",
-                  borderRadius: "5px",
-                }}
+                style={{ padding: "8px", borderRadius: "5px" }}
               >
                 <FaSearch />
               </IconButton>
             </div>
-            {/* LOGIN BUTTON  STARAT  */}
             <div className="navLoginCart">
               <Button
                 color="inherit"
@@ -151,14 +135,17 @@ const Navbar = () => {
                 {userData ? userData.name : "LogIN"}
               </Button>
             </div>
-            {loginSignupOpen && <div className="navLogOutbtn">
-              <Button color="inherit" startIcon={<MdOutlineLogout />}
-              onClick={logOut}
-              >
-                Log Out
-              </Button>
-            </div>}
-            {/* CART BUTTON  STARAT  */}
+            {userData && (
+              <div className="navLogOutbtn">
+                <Button
+                  color="inherit"
+                  startIcon={<MdOutlineLogout />}
+                  onClick={logOut}
+                >
+                  Log Out
+                </Button>
+              </div>
+            )}
             <div
               className="cart"
               style={{
@@ -184,12 +171,7 @@ const Navbar = () => {
           </Toolbar>
         </AppBar>
       </div>
-      {/* BOTTTOM SEARCH BAR MEDIA QUERY */}
-      <div
-        style={{
-          backgroundColor: "#0000",
-        }}
-      >
+      <div style={{ backgroundColor: "#0000" }}>
         <div
           className="bottom-search_bar"
           style={{
@@ -220,10 +202,9 @@ const Navbar = () => {
           />
         </div>
       </div>
-
       <LoginSignupPopup />
     </>
-  ); 
+  );
 };
 
 export default Navbar;

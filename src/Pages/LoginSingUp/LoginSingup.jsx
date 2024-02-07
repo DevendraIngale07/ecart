@@ -34,12 +34,16 @@ const LoginSignup = (props) => {
 
     try {
       let response = await axios.post(apiUrl, formData);
-      console.log(response.data);
-      localStorage.setItem("userData", JSON.stringify(response.data));
-      props.setLoginSignupOpen(false);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+      
+      if (response.data && response.data.userData) {
+          localStorage.setItem("userData", JSON.stringify(response.data.userData));
+          props.setLoginSignupOpen(false);
+      } else {
+          alert("Enter valid Email-id and password");
+      }
+  } catch (error) {
+      console.alert("Error:", error);
+  }
   };
 
   const handleTogglePassword = () => {
@@ -80,12 +84,20 @@ const LoginSignup = (props) => {
       if (addUserResponse.ok) {
         alert("User added successfully!");
         setAction("Login");
+        clearFormData();
       } else {
         console.error("Failed to add user.");
       }
     } catch (error) {
       console.error("Error:", error);
     }
+  };
+  const clearFormData = () => {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+    });
   };
 
   return (
