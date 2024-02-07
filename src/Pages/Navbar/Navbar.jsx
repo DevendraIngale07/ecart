@@ -10,7 +10,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { CiMenuKebab } from "react-icons/ci";
 import logo from "../../Assets/logo.png";
@@ -19,17 +19,17 @@ import { Dialog, DialogContent } from "@mui/material";
 import "../Navbar/Navbar.css";
 import LoginSignup from "../LoginSingUp/LoginSingup";
 import { FaRegUserCircle } from "react-icons/fa";
-
-
+import { MdOutlineLogout } from "react-icons/md";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  
   const handleDrawerToggle = () => {
     setMenuOpen(!menuOpen);
   };
   const [loginSignupOpen, setLoginSignupOpen] = useState(false);
 
+  
 
   const LoginSignupPopup = () => (
     <Dialog open={loginSignupOpen} onClose={() => setLoginSignupOpen(false)}>
@@ -61,7 +61,7 @@ const Navbar = () => {
     try {
       const userDataString = localStorage.getItem("userData");
       if (userDataString) {
-        const userData = JSON.parse(userDataString);
+        const userData =  JSON.parse(userDataString);
         return userData;
       }
       return null;
@@ -70,13 +70,19 @@ const Navbar = () => {
       return null;
     }
   };
-  
+
   const userData = getUserDataFromLocalStorage();
-  
+
   if (userData) {
     console.log("User data:", userData.name);
   } else {
     console.log("User data not found in local storage.");
+  }
+
+  const logOut = () =>{
+    console.log("Logging out...");
+    localStorage.removeItem("userData");
+    window.location.reload();
   }
   return (
     <>
@@ -145,6 +151,13 @@ const Navbar = () => {
                 {userData ? userData.name : "LogIN"}
               </Button>
             </div>
+            {loginSignupOpen && <div className="navLogOutbtn">
+              <Button color="inherit" startIcon={<MdOutlineLogout />}
+              onClick={logOut}
+              >
+                Log Out
+              </Button>
+            </div>}
             {/* CART BUTTON  STARAT  */}
             <div
               className="cart"
@@ -210,7 +223,7 @@ const Navbar = () => {
 
       <LoginSignupPopup />
     </>
-  );
+  ); 
 };
 
 export default Navbar;

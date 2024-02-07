@@ -1,9 +1,11 @@
-.bottom-search_bar{
+.bottom-search_bar {
   display: none !important;
 }
+
 .menu {
   display: none !important;
 }
+
 .bottom-nav {
   display: none !important;
 }
@@ -33,21 +35,51 @@
   max-width: auto !important;
 }
 
+.navLogOutbtn {
+  display: flex !important;
+  align-items: center !important;
+  gap: 15px !important;
+  background-color: #20458e84 !important;
+  padding: 5px !important;
+  padding-right: 0px !important;
+  width: 80px !important;
+  margin-right: 10px !important;
+  border-radius: 10px !important;
+  box-shadow: 3px 6px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.navLogOutbtn Button {
+  font-size: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  color: #fff !important;
+  font-weight: 50 !important;
+  padding: 15px !important;
+  height: 20px !important;
+  width: 150px !important;
+  max-width: auto !important;
+}
+
+
 @media screen and (max-width: 750px) {
-  .navbar{
+  .navbar {
     align-items: center !important;
     justify-content: space-between !important;
   }
+
   .menu {
     display: flex !important;
   }
-  .search_bar{
-    display: none!important;
+
+  .search_bar {
+    display: none !important;
   }
-  .bottom-search_bar{
+
+  .bottom-search_bar {
     display: flex !important;
   }
-  .navLoginCart{
+
+  .navLoginCart {
     margin-left: auto;
   }
 

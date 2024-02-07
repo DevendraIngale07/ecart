@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Container,
   Typography,
@@ -24,42 +25,18 @@ const LoginSignup = (props) => {
     name: "",
     email: "",
     password: "",
-    isLoggedIn: false,
   });
-
   const handleInputChange = (field, value) => {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
   };
-
   const handleLoginClick = async () => {
-    setLoginClicked(true);
-    const apiUrl = "http://localhost:3001/usersData";
+    const apiUrl = "http://localhost:5000/login";
 
     try {
-      const response = await fetch(apiUrl);
-      const usersData = await response.json();
-
-      const user = usersData.find(
-        (u) =>
-          u.email.toLowerCase() === formData.email.toLowerCase() &&
-          u.password === formData.password
-      );
-
-      if (user) {
-        user.isLogin = true;
-        setFormData(user);
-        const { password, ...userWithoutPassword } = user;
-        console.log("User logged in:", userWithoutPassword);
-
-        localStorage.setItem("userData", JSON.stringify(userWithoutPassword));
-
-        // Trigger a re-render with the user data
-        props.setLoginSignupOpen(false);
-        // Use the setUserData function from props
-        props.setUserData(userWithoutPassword);
-      } else {
-        alert("User does not exist. Please sign up first.");
-      }
+      let response = await axios.post(apiUrl, formData);
+      console.log(response.data);
+      localStorage.setItem("userData", JSON.stringify(response.data));
+      props.setLoginSignupOpen(false);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -88,20 +65,9 @@ const LoginSignup = (props) => {
       return;
     }
 
-    const apiUrl = "http://localhost:3001/usersData";
+    const apiUrl = "http://localhost:5000/signup";
 
     try {
-      const response = await fetch(apiUrl);
-      const userData = await response.json();
-      const emailExists = userData.some(
-        (user) => user.email.toLowerCase() === formData.email.toLowerCase()
-      );
-
-      if (emailExists) {
-        alert("Email already exists. Please use a different email address.");
-        return;
-      }
-
       const addUserResponse = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -109,7 +75,7 @@ const LoginSignup = (props) => {
         },
         body: JSON.stringify(formData),
       });
-      // console.log(formData);
+      console.log(formData);
 
       if (addUserResponse.ok) {
         alert("User added successfully!");
@@ -177,7 +143,7 @@ const LoginSignup = (props) => {
                   </InputAdornment>
                 ),
               }}
-              
+              autoComplete="current-password"
             />
           </Grid>
         </Grid>
@@ -205,7 +171,7 @@ const LoginSignup = (props) => {
         </Typography>
       )}
 
-<div className="submit-container">
+      <div className="submit-container">
         {action === "Login" && (
           <Button
             variant="contained"
